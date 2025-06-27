@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodSave - Less Waste, More Taste</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <style>
+      :root {
+        --primary: #2d6a4f;
+        --secondary: #e76f51;
+        --background: #fefae0;
+        --gradient-1: linear-gradient(135deg, #2d6a4f, #40916c);
+        --gradient-2: linear-gradient(135deg, #e76f51, #f4a261);
+        --shadow: 0 4px 20px rgba(45, 106, 79, 0.15);
+      }
+      
+      body {
+        background-color: var(--background);
+        color: var(--primary);
+        font-weight: 500;
+      }
+      
+      h1, h2, h3 {
+        color: var(--primary);
+        font-weight: 700;
+      }
+      
+      header, section, footer {
+        margin-bottom: 2rem;
+      }
+      
+      .founder-card {
+        border: 2px solid var(--primary);
+        border-radius: 1rem;
+        padding: 1rem;
+        background-color: #fff;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+      
+      .founder-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+      
+      .founder-card img {
+        border-radius: 50%;
+        max-width: 120px;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+      }
+      
+      .founder-card:hover img {
+        transform: scale(1.05);
+      }
+      
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+      
+      .feature-card {
+        background: linear-gradient(145deg, #ffffff, #f8f9fa);
+        border-radius: 20px;
+        padding: 1.5rem;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+      }
+      
+      .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--gradient-1);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(45, 106, 79, 0.2);
+        border-color: var(--primary);
+      }
+      
+      .feature-card:hover::before {
+        opacity: 0.05;
+      }
+      
+      .feature-card:nth-child(even):hover::before {
+        background: var(--gradient-2);
+      }
+      
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+        animation: bounce 2s infinite;
+      }
+      
+      .feature-card:hover .feature-icon {
+        animation: spin 0.6s ease-in-out;
+      }
+      
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+      
+      @keyframes spin {
+        from { transform: rotate(0deg) scale(1); }
+        to { transform: rotate(360deg) scale(1.1); }
+      }
+      
+      .feature-card h3 {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        transition: color 0.3s ease;
+      }
+      
+      .feature-card:hover h3 {
+        color: var(--secondary);
+      }
+      
+      .feature-card p {
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 1rem;
+      }
+      
+      .feature-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        filter: brightness(0.9);
+      }
+      
+      .feature-card:hover img {
+        transform: scale(1.05);
+        filter: brightness(1) saturate(1.1);
+      }
+      
+      .feature-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--gradient-1);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        transform: rotate(15deg);
+        animation: pulse 3s infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { transform: rotate(15deg) scale(1); }
+        50% { transform: rotate(15deg) scale(1.05); }
+      }
+      
+      .cta-button {
+        background: var(--gradient-1);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        width: 100%;
+      }
+      
+      .cta-button:hover {
+        background: var(--gradient-2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(231, 111, 81, 0.3);
+      }
+      
+      .stats-counter {
+        background: var(--gradient-1);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 15px;
+        font-weight: 700;
+        display: inline-block;
+        margin: 0.5rem 0;
+        animation: countUp 2s ease-out;
+      }
+      
+      @keyframes countUp {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      
+      .floating-elements {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: var(--secondary);
+        border-radius: 50%;
+        opacity: 0.1;
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="container-fluid">
+      <ul>
+        <li><strong style="color: var(--primary)">FoodSave</strong></li>
+      </ul>
+      <ul>
+        <li><a href="#fitur">Fitur</a></li>
+        <li><a href="#founders">Founder</a></li>
+        <li><a href="#kontak" role="button">Kontak</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <section>
+        <img src="logo.png" alt="Logo FoodSave" style="max-width: 120px" />
+        <h1 style="color: #2d6a4f">Less Waste, More Taste, Smart Pace</h1>
+        <p style="font-size: 1.2rem; color: var(--primary)">FoodSave adalah aplikasi mobile inovatif yang menjadi penghubung antara pelaku usaha makanan (restoran, warteg, bakery, minimarket, UMKM) dengan konsumen untuk mengalirkan makanan surplus berkualitas ke tangan yang tepat.</p>
+        
+        <div style="background: linear-gradient(135deg, #2d6a4f20, #e76f5120); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--primary);">
+          <h3 style="margin-bottom: 1rem;">🌱 Dampak Sustainability & Zero Waste</h3>
+          <div class="grid">
+            <div>
+              <strong style="color: var(--primary);">🍃 Mengurangi Food Waste</strong>
+              <p style="color: var(--primary); font-weight: 600;">Selamatkan 12+ porsi makanan per bulan dari tempat sampah</p>
+            </div>
+            <div>
+              <strong style="color: var(--primary);">🌍 Kurangi Emisi Karbon</strong>
+              <p style="color: var(--primary); font-weight: 600;">Kontribusi nyata mengurangi 4,2 kg CO₂ per pengguna</p>
+            </div>
+            <div>
+              <strong style="color: var(--primary);">♻️ Ekonomi Sirkular</strong>
+              <p style="color: var(--primary); font-weight: 600;">Makanan tak terjual → Donasi → Kompos organik</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="fitur">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">🚀 Products & Services Yang Bikin Hidup Lo Lebih Berarti!</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-badge">HOT! 🔥</div>
+            <div class="floating-elements" style="top: 20%; left: 80%;"></div>
+            <span class="feature-icon">🛒</span>
+            <h3>Treasure Hunt Makanan Enak (Diskon 40-70%)</h3>
+            <p>Siapa bilang makan enak harus mahal? Temukan hidden gems makanan premium dari restoran fancy, warteg legend, & UMKM kece dengan harga yang bikin dompet happy!</p>
+            <div class="stats-counter">12,000+ Menu Tersedia</div>
+            <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=1000&q=80" alt="Katalog makanan surplus di restoran" />
+            <button class="cta-button">Mulai Berburu! 🎯</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">FASTEST ⚡</div>
+            <span class="feature-icon">⚡</span>
+            <h3>Lightning Flash Sale - Grab It Fast!</h3>
+            <p>Speed is key! Makanan mendekati expired tapi masih super fresh dengan harga yang bikin shock therapy. Real-time countdown yang bikin adrenalin naik!</p>
+            <div class="stats-counter">Up to 80% OFF</div>
+            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1000&q=80" alt="Flash sale timer countdown" />
+            <button class="cta-button">Flash Hunt Sekarang! ⚡</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">SMART 🧠</div>
+            <span class="feature-icon">👨‍⚕️</span>
+            <h3>Smart Nutrition - Screening Ahli Gizi Pre-Sale</h3>
+            <p>Sebelum dijual di platform, setiap makanan dari mitra penjual wajib melewati screening ahli gizi! Quality check nutrisi, label kalori, vitamin, plus tips penyajian. Makanan yang lolos screening baru boleh masuk katalog!</p>
+            <div class="stats-counter">500+ Ahli Gizi Partner</div>
+            <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1000&q=80" alt="Label informasi gizi makanan" />
+            <button class="cta-button">Lihat Proses Screening! 💡</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">TRUSTED ✅</div>
+            <span class="feature-icon">✅</span>
+            <h3>Premium Certified Partners Only</h3>
+            <p>Gak sembarangan! Partner kita udah melewati "bootcamp" keamanan pangan, storage technique, dan packaging ethics. Quality guaranteed, no worries!</p>
+            <div class="stats-counter">1,200+ Certified Partners</div>
+            <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=1000&q=80" alt="Sertifikat verifikasi keamanan pangan" />
+            <button class="cta-button">Lihat Partner Terdekat 🗺️</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">INSTANT 📍</div>
+            <span class="feature-icon">📍</span>
+            <h3>GPS Magic - Order in 3 Taps!</h3>
+            <p>Malas jalan jauh? FoodSave GPS bakal cariin yang paling deket dari lo. Dalam radius 500m aja udah bisa dapet makanan enak. Hemat waktu, hemat ongkir!</p>
+            <div class="stats-counter">Average 8 mins delivery</div>
+            <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1000&q=80" alt="GPS lokasi restoran terdekat" />
+            <button class="cta-button">Find Near Me! 🎯</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">VIP 💎</div>
+            <span class="feature-icon">💎</span>
+            <h3>Exclusive Membership - Be The Chosen One</h3>
+            <p>Member FoodSave dapat treatment khusus! Priority access ke makanan rare, kuota diskon harian unlimited, plus poin loyalitas yang bisa dituker gadget kece!</p>
+            <div class="stats-counter">50,000+ Active Members</div>
+            <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=1000&q=80" alt="Kartu membership loyalty program" />
+            <button class="cta-button">Join VIP Club! 👑</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">IMPACT 📊</div>
+            <span class="feature-icon">📊</span>
+            <h3>Your Impact Dashboard - Track Your Heroism</h3>
+            <p>Seberapa keren kontribusi lo? Dashboard menunjukkan "Bulan ini kamu udah selamatkan 15 porsi makanan & kurangi 5.2 kg CO₂!" Feel good factor guaranteed!</p>
+            <div class="stats-counter">2.5M kg CO₂ Saved</div>
+            <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1000&q=80" alt="Dashboard tracking food waste dan emisi karbon" />
+            <button class="cta-button">Cek Impact Gue! 🌍</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">GAME ON 🔥</div>
+            <span class="feature-icon">🔥</span>
+            <h3>Streak & Gamification - Level Up Your Green Life</h3>
+            <p>Daily streak, weekly challenges, monthly leaderboard! Compete dengan foodsaver lain, unlock achievement keren, dan dapet laporan yang bisa lo flex ke temen!</p>
+            <div class="stats-counter">Level 47 Highest Achiever</div>
+            <img src="https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?auto=format&fit=crop&w=1000&q=80" alt="Leaderboard dan achievement gamifikasi" />
+            <button class="cta-button">Start Your Streak! 🚀</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">KINDNESS ❤️</div>
+            <span class="feature-icon">❤️</span>
+            <h3>Micro Donation - Small Acts, Big Impact</h3>
+            <p>Setiap order bisa tambahin donasi mulai Rp1.000 aja! Transparansi 100%, lo bisa track kemana aja donasi lo disalurkan. Berbagi kebaikan itu mudah banget!</p>
+            <div class="stats-counter">Rp 850M+ Donated</div>
+            <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1000&q=80" alt="Berbagi makanan untuk donasi sosial" />
+            <button class="cta-button">Mulai Berbagi! 🤝</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">ZERO WASTE ♻️</div>
+            <span class="feature-icon">♻️</span>
+            <h3>Ultimate Zero Waste System</h3>
+            <p>Makanan yang gak laku otomatis punya "second life"! Dialirkan ke lembaga sosial atau jadi kompos organik premium. Literally ZERO food goes to waste!</p>
+            <div class="stats-counter">100% Zero Waste Rate</div>
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1000&q=80" alt="Kompos organik dari sisa makanan" />
+            <button class="cta-button">Join Zero Waste Movement! ♻️</button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-badge">COLLAB 🤝</div>
+            <span class="feature-icon">🤝</span>
+            <h3>Event & Campus Partnership - Scale The Impact</h3>
+            <p>Kerjasama dengan event organizer, seminar, konser, festival kampus untuk distribusi makanan surplus. Dari acara kecil sampai festival besar!</p>
+            <div class="stats-counter">300+ Event Partners</div>
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=80" alt="Event kampus dengan catering surplus" />
+            <button class="cta-button">Partner With Us! 🎉</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="founders">
+        <h2>Meet the Founders</h2>
+        <div class="grid">
+          <div class="founder-card">
+            <img src="najiha.png" alt="Najihah Arfin Hartono" />
+            <h3>NAJIHA ARFIN HARTONO</h3>
+            <p style="color: var(--secondary); font-weight: 600;">Mahasiswi Semester 6 – Manajemen Strategi, UPN Veteran Yogyakarta<br/>Peran: Strategi bisnis, model usaha, visi jangka panjang</p>
+          </div>
+          <div class="founder-card">
+            <img src="yunda.png" alt="Yunda Nira" />
+            <h3>YUNDA NIRA</h3>
+            <p style="color: var(--secondary); font-weight: 600;">Mahasiswi Semester 6 – Manajemen Strategi, UPN Veteran Yogyakarta<br/>Peran: Pemasaran, brand positioning, komunikasi</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontak">
+        <h2>Hubungi Kami</h2>
+        <form class="grid">
+          <input type="text" name="nama" placeholder="Nama Anda" required />
+          <input type="email" name="email" placeholder="Email Anda" required />
+          <textarea name="pesan" placeholder="Pesan Anda" required></textarea>
+          <button type="submit" onclick="event.preventDefault()">Kirim</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Beri Review</h2>
+        <form class="grid">
+          <input type="text" placeholder="Nama Anda" required />
+          <textarea placeholder="Tulis review Anda..." required></textarea>
+          <button type="submit" onclick="event.preventDefault()">Kirim Review</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="container">
+      <small>
+        <a href="#">Kebijakan Privasi</a> • <a href="#">Syarat Penggunaan</a>
+      </small>
+    </footer>
+  </body>
+</html>
